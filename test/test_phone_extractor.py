@@ -8,7 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from digExtractor.extractor import Extractor
 from digExtractor.extractor_processor import ExtractorProcessor
-from phone_extractor import PhoneExtractor
+from digPhoneExtractor.phone_extractor import PhoneExtractor
 
 class TestPhoneExtractorMethods(unittest.TestCase):
 
@@ -30,15 +30,6 @@ class TestPhoneExtractorMethods(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-    # def run_main_test():
-    #     suite = unittest.TestSuite()
-    #     suite.addTest(TestCSVMethods("test_read_csv"))
-        
-    #     runner = unittest.TextTestRunner()
-    #     runner.run(suite)
-
-    # run_main_test()
 
 
 
