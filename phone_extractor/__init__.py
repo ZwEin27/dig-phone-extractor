@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-30 12:02:33
+# @Last Modified time: 2016-09-30 13:21:24
 
 import os
 import re
@@ -615,29 +615,4 @@ class PhoneExtractor(Extractor):
             raise ValueError("renamed_input_fields must be a string or a list")
         self.renamed_input_fields = renamed_input_fields
         return self 
-
-
-
-if __name__ == '__main__':
-
-    doc = "71857376 71857376718 test 71857376719 718573767185 71837376718 71981090718 718573767198 719810907185 71857376150 1171857376 http://costarica.backpage.com/BodyRubs/hoy-cerramos-a-las-11-71857376/2909373 Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
-
-    pe = PhoneExtractor()
-    print pe.extract(doc)
-
-    """
-    # Samples
-    
-    # from phone_number_extractor import PhoneNumberExtractor
-    extractor = PhoneNumberExtractor()
-
-    url_string = "http://costarica.backpage.com/BodyRubs/hoy-cerramos-a-las-11-71857376/2909373"
-    url_phone_numbers = extractor.match(url_string, source_type='url')
-    print url_phone_numbers
-
-    # text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
-    text_string = "71857376 71857376718 test 71857376719 718573767185 71837376718 71981090718 718573767198 719810907185 71857376150 1171857376"
-    text_phone_numbers = extractor.match(text_string, source_type='text')
-    print text_phone_numbers
-    """
 
