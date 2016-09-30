@@ -19,12 +19,12 @@ class TestPhoneExtractorMethods(unittest.TestCase):
         pass
 
     def test_phone_extractor(self):
-        doc = { 'content': 'Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call', 'b': 'world'}
+        doc = { 'content': 'Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call', 'url': 'http://liveescortreviews.com/ad/philadelphia/602-228-4192/1/310054','b': 'world'}
 
         extractor = PhoneExtractor().set_metadata({'extractor': 'phone'})
-        extractor_processor = ExtractorProcessor().set_input_fields('content').set_output_field('extracted').set_extractor(extractor)
+        extractor_processor = ExtractorProcessor().set_input_fields(['url', 'content']).set_output_field('extracted').set_extractor(extractor)
         updated_doc = extractor_processor.extract(doc)
-        self.assertEqual(updated_doc['extracted']['value'], ['4802671904'])
+        self.assertEqual(updated_doc['extracted']['value'], ['6022284192', '4802671904'])
 
     
 
