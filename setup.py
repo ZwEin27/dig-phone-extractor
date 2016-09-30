@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-09-30 14:01:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-30 14:32:39
+# @Last Modified time: 2016-09-30 14:34:41
 
 
 from distutils.core import setup
@@ -16,7 +16,7 @@ setup(
     author = 'Lingzhe Teng',
     author_email = 'zwein27@gmail.com',
     url = 'https://github.com/ZwEin27/dig-phone-extractor',
-    download_url = 'https://github.com/ZwEin27/dig-phone-extractor/tarball/0.1.0',
+    download_url = 'https://github.com/ZwEin27/dig-phone-extractor',
     packages = find_packages(),
     keywords = ['phone_number', 'extractor'],
     install_requires=['phonenumbers', 'digSparkUtil', 'decorator', 'digExtractor', 'requests', 'requests-file', 'jsonpath-rw', 'nose2', 'ply', 'six']
