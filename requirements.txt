@@ -1,8 +1,6 @@
 decorator==4.0.10
 digExtractor==0.1.7
 digSparkUtil==1.0.23
-esmre==0.3.1
-idna==2.1
 jsonpath-rw==1.4.0
 nose2==0.6.4
 phonenumbers==7.4.2
@@ -10,5 +8,3 @@ ply==3.9
 requests==2.11.1
 requests-file==1.4
 six==1.10.0
-tldextract==2.0.1
-wsgiref==0.1.2
