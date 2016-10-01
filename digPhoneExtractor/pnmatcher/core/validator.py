@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-19 20:58:12
+# @Last Modified time: 2016-10-01 09:50:02
 
 """
 ensure phone numbers are valid
@@ -11,7 +11,7 @@ ensure phone numbers are valid
 import re
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
-from pnmatcher.core.common import datetime
+from pnmatcher.core.common import datetime_helper
 from difflib import SequenceMatcher
 # from pnmatcher.res import area_code
 
@@ -70,11 +70,11 @@ class Validator():
 
         date_format = ''
         if size == 14:
-            return datetime.is_valid_datetime(raw, '%Y%m%d%H%M%S')
+            return datetime_helper.is_valid_datetime(raw, '%Y%m%d%H%M%S')
         elif size == 8:
-            return datetime.is_valid_datetime(raw, '%Y%m%d')
+            return datetime_helper.is_valid_datetime(raw, '%Y%m%d')
         elif size == 6:
-            return datetime.is_valid_datetime(raw, '%Y%m%d') or datetime.is_valid_datetime(raw, '%H%M%S')
+            return datetime_helper.is_valid_datetime(raw, '%Y%m%d') or datetime_helper.is_valid_datetime(raw, '%H%M%S')
         else:
             return False
 
