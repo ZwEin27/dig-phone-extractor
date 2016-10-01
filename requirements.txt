@@ -8,3 +8,4 @@ ply==3.9
 requests==2.11.1
 requests-file==1.4
 six==1.10.0
+digCrfTokenizer>=0.1.5
