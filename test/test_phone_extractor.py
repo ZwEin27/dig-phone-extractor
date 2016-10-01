@@ -24,7 +24,7 @@ class TestPhoneExtractorMethods(unittest.TestCase):
         extractor = PhoneExtractor().set_metadata({'extractor': 'phone'})
         extractor_processor = ExtractorProcessor().set_input_fields(['url', 'content']).set_output_field('extracted').set_extractor(extractor)
         updated_doc = extractor_processor.extract(doc)
-        self.assertEqual(updated_doc['extracted']['value'], ['6022284192', '4802671904'])
+        self.assertEqual(updated_doc['extracted']['value'], [{'obfuscation': 'False', 'telephone': '6022284192'}, {'obfuscation': 'True', 'telephone': '4802671904'}])
 
     
 
