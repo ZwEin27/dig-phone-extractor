@@ -2,12 +2,12 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-30 22:23:28
+# @Last Modified time: 2016-09-30 23:40:03
 
 import copy 
 import types
-from pnmatcher import PhoneNumberMatcher
 from digExtractor.extractor import Extractor
+from pnmatcher import PhoneNumberMatcher
 
 class PhoneExtractor(Extractor):
 
