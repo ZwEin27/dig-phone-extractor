@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-30 23:40:03
+# @Last Modified time: 2016-10-02 15:43:25
 
 import copy 
 import types
@@ -15,10 +15,15 @@ class PhoneExtractor(Extractor):
         self.renamed_input_fields = ['url', 'raw_content']  # ? renamed_input_fields
 
     def extract(self, doc):
+        if not 'url' in doc or not 'raw_content' in doc:
+            return None
+
         extractor = PhoneNumberMatcher(_output_format='obfuscation')
         extracts = []
-        extracts += extractor.match(doc['url'], source_type='url')
-        extracts += extractor.match(doc['raw_content'], source_type='text')
+        if 'url' in doc:
+            extracts += extractor.match(doc['url'], source_type='url')
+        if 'raw_content' in doc:
+            extracts += extractor.match(doc['raw_content'], source_type='text')
         return extracts
 
     def get_metadata(self):
