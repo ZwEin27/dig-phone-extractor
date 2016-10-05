@@ -1,7 +1,5 @@
 decorator==4.0.10
-digExtractor>=0.1.8
-digSparkUtil==1.0.23
-jsonpath-rw==1.4.0
+digExtractor>=0.2.0
 nose2==0.6.4
 phonenumbers==7.4.2
 ply==3.9
