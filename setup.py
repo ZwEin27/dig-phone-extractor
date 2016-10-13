@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-09-30 14:01:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-30 14:34:41
+# @Last Modified time: 2016-10-13 14:51:55
 
 
 from distutils.core import setup
@@ -19,5 +19,5 @@ setup(
     download_url = 'https://github.com/ZwEin27/dig-phone-extractor',
     packages = find_packages(),
     keywords = ['phone_number', 'extractor'],
-    install_requires=['phonenumbers', 'digSparkUtil', 'decorator', 'digExtractor', 'requests', 'requests-file', 'jsonpath-rw', 'nose2', 'ply', 'six']
+    install_requires=['phonenumbers', 'digSparkUtil', 'twilio', 'digExtractor']
 )
