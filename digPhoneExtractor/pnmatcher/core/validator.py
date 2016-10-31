@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-10-01 09:50:02
+# @Last Modified time: 2016-10-30 17:46:27
 
 """
 ensure phone numbers are valid
@@ -105,7 +105,7 @@ class Validator():
             return SequenceMatcher(None, a, b).ratio()
         potential_invalid, potential_valid = [], []
         for pn in extracted_phone_list:
-            if len(pn) == 10:
+            if len(pn) >= 9 and len(pn) <= 13:
                 potential_valid.append(pn)
             else:
                 potential_invalid.append(pn)
@@ -116,6 +116,7 @@ class Validator():
         return ans
 
     def validate(self, raw):
+
         ans = []
         for nums in raw.split('\t'):
             nums = nums.strip()
