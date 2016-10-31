@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-10-01 09:44:49
+# @Last Modified time: 2016-10-30 17:04:39
 
 """
 extract digits that seem good
@@ -14,22 +14,13 @@ import sys
 import os
 import collections
 
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
-# import en
-
-
-
 class Extractor():
 
     def __init__(self):
         pass
 
     prefix = r'(?:(?<=[\A\b\sa-zA-Z])|^)'
-    # prefix = r'\b'
-    # prefix = r'[ ]?'
     postfix = r'(?:(?=[\Z\b\sa-zA-Z])|$)'
-    # postfix = r'\b'
-    # postfix = r'[ ]?'
 
     phone_number_format_regex = [
         r'(?:'+prefix+r"\d{10,13}"+postfix+r')',
@@ -68,14 +59,12 @@ class Extractor():
         r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')'
     ]
 
-    # numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     re_numbers_regex = re.compile(numbers_regex)
-    # print numbers_regex
     
     def extract(self, raw):
         raw = Extractor.re_numbers_regex.findall(raw)
-        raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
+        raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10] # .lstrip('0') if necessary
         return '\t'.join(raw)
 
 if __name__ == '__main__':
