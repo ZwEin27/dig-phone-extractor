@@ -2,16 +2,16 @@
 # @Author: ZwEin
 # @Date:   2016-10-13 14:51:29
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-10-14 11:01:46
+# @Last Modified time: 2016-11-01 21:06:46
 
 # Download the Python helper library from twilio.com/docs/python/install
 from twilio.rest.lookups import TwilioLookupsClient
+from twilio.rest.exceptions import TwilioRestException
 
 # Your Account Sid and Auth Token from twilio.com/user/account
 account_sid = "ACb44ce674a411efd365e5fe344e20daea"
 auth_token = "088e5197c15f18770d5dd185f532fdb2"
 client = TwilioLookupsClient(account_sid, auth_token)
-print repr(client)
 
 def load_phone_number(phone_number):
 
@@ -38,16 +38,38 @@ def load_phone_number(phone_number):
         occurred
 
     """
-    number = client.phone_numbers.get(phone_number, include_carrier_info=True)
+    try:
+        number = client.phone_numbers.get(phone_number, include_carrier_info=True)
 
-    ans = {}
-    ans.setdefault('phone_number', number.phone_number)
-    ans.setdefault('national_format', number.national_format)
-    ans.setdefault('country_code', number.country_code)
-    ans.setdefault('carrier', number.carrier)
+        ans = {}
+        ans.setdefault('phone_number', number.phone_number)
+        ans.setdefault('national_format', number.national_format)
+        ans.setdefault('country_code', number.country_code)
+        ans.setdefault('carrier', number.carrier)
 
-    return ans
+    except TwilioRestException as e:
+        if e.code == 20404:
+            """
+            When the Twilio Python library encounters a 404 it will throw a "TwilioRestException". 
+            The error code for this is 20404, so if we want to write a function that validates phone numbers we can check to see if an exception was raised with code 20404.
+            """
+            return {'error': 'NOT IN DATABASE'}
+        else:
+            print e
+            return {'error': 'NOT IN DATABASE'}
+            # raise e
+
+    else:
+        return ans
+    
 
 if __name__ == '__main__':
-    phone_number = "+12133790692"
-    print load_phone_number(phone_number)
+    import json
+    phone_number = "+918888665466"
+    # phone_number = "2133790691"
+    # 9921488433
+    # 971552602207
+    # 431579430138
+    # 310504188822
+    ans = load_phone_number(phone_number)
+    print json.dumps(ans, indent=4)
