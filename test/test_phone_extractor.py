@@ -4,7 +4,7 @@ import json
 import os
 import unittest
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 # TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 import groundtruth
@@ -35,7 +35,7 @@ class TestPhoneExtractorMethods(unittest.TestCase):
             # print doc
             updated_doc = extractor_processor.extract(doc)
             # a = set([_['telephone'] for _ in updated_doc['extracted'][0]['value']])
-            b = set(doc['url_ext_gt'])|set(doc['text_ext_gt'])
+            # b = set(doc['url_ext_gt'])|set(doc['text_ext_gt'])
 
             if 'extracted' not in updated_doc:
                 self.assertEqual(set(), set(doc['url_ext_gt'])|set(doc['text_ext_gt']))
