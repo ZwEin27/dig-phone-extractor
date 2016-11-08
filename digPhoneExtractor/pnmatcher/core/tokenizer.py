@@ -21,6 +21,7 @@ from urlparse import urlparse
 SOURCE_TYPE_TEXT = 'text'
 SOURCE_TYPE_URL = 'url'
 
+
 class Tokenizer():
 
     re_2_digts_only_in_url_regex = re.compile(r'(?<=[-_])\d{2}(?=[_/])')
@@ -30,18 +31,19 @@ class Tokenizer():
         self.set_source_type(source_type)
 
     def set_source_type(self, source_type):
-        """ 
+        """
         'text' or 'url'
 
         """
         st = source_type.lower()
-        if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL] :
-            raise Exception(source_type + ' is not a source type, which should be "text" or "url"')
+        if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL]:
+            raise Exception(
+                source_type + ' is not a source type, which should be "text" or "url"')
 
         self.source_type = source_type
 
     def remove_punctuation(self, raw):
-        return raw.translate(string.maketrans("",""), string.punctuation)
+        return raw.translate(string.maketrans("", ""), string.punctuation)
 
     def tokenize(self, raw):
         result = None
@@ -66,9 +68,10 @@ class Tokenizer():
         SEPARATOR = ' '
 
         url_obj = urlparse(raw)
-        
+
         # parse netloc
-        netloc = url_obj.netloc.split('.')[:-2]   # get rid of port numbers, ext and domain name
+        # get rid of port numbers, ext and domain name
+        netloc = url_obj.netloc.split('.')[:-2]
 
         # parse path
         path = url_obj.path
@@ -77,17 +80,12 @@ class Tokenizer():
 
         content = netloc + path
 
-        content = [SEPARATOR.join(Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
+        content = [SEPARATOR.join(
+            Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
 
         # parse params
         # url_obj.params
-        
+
         # parse query
         # url_obj.query
         return ' sep '.join(content)
-   
-
-
-
-
-    

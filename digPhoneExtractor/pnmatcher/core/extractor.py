@@ -10,13 +10,9 @@ extract digits that seem good
 """
 
 import re
-import sys
-import os
-import collections
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
 # import en
-
 
 
 class Extractor():
@@ -32,47 +28,61 @@ class Extractor():
     # postfix = r'[ ]?'
 
     phone_number_format_regex = [
-        r'(?:'+prefix+r"\d{10,13}"+postfix+r')',
-        r'(?:'+prefix+r"\d{9,10}"+postfix+r')',
-        r'(?:'+prefix+r"\d{8}[ ]\d{3,4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{7}[ ]\d{3,4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{6}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
-        r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{5}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
-        r'(?:'+prefix+r"\d{4}[ ]\d{4}[ ]\d{2}"+postfix+r')',
-        r'(?:'+prefix+r"\d{4}[ ]\d{2}[ ]\d{2}[ ]\d{2}[ ]\d{2}"+postfix+r')',
-        r'(?:'+prefix+r"\d{4}[ ]\d{3}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{7,8}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{4}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{4}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{3}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{3}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{4}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{8}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',    # \d{2}[ ] ...
-        r'(?:'+prefix+r"\d{1}[ ]\d{3}[ ]\d{3}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}"+postfix+r')',
-        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')'
+        r'(?:' + prefix + r"\d{10,13}" + postfix + r')',
+        r'(?:' + prefix + r"\d{9,10}" + postfix + r')',
+        r'(?:' + prefix + r"\d{8}[ ]\d{3,4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{7}[ ]\d{3,4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{6}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{5}[ ]\d{6}" + postfix + r')',
+        r'(?:' + prefix + r"\d{5}[ ]\d{4}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{5}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}" + postfix + r')',
+        r'(?:' + prefix + r"\d{4}[ ]\d{4}[ ]\d{2}" + postfix + r')',
+        r'(?:' + prefix +
+        r"\d{4}[ ]\d{2}[ ]\d{2}[ ]\d{2}[ ]\d{2}" + postfix + r')',
+        r'(?:' + prefix + r"\d{4}[ ]\d{3}[ ]\d{3}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{7,8}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{4}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{4}[ ]\d{3}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{3}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{3}[ ]\d{3}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix +
+        r"\d{3}[ ]\d{3}[ ]\d{2}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + r"\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}" + postfix + r')',
+        r'(?:' + prefix +
+        r"\d{3}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{2}[ ]\d{4}[ ]\d{4}" + postfix + r')',
+        r'(?:' + prefix + r"\d{2}[ ]\d{8}" + postfix + r')',
+        # \d{2}[ ] ...
+        r'(?:' + prefix + r"\d{1}[ ]\d{8}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + r"\d{1}[ ]\d{3}[ ]\d{3}[ ]\d{3}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}" + postfix + r')',
+        r'(?:' + prefix + \
+        r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}" + postfix + r')'
     ]
 
     # numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     re_numbers_regex = re.compile(numbers_regex)
     # print numbers_regex
-    
+
     def extract(self, raw):
         raw = Extractor.re_numbers_regex.findall(raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]

@@ -15,6 +15,7 @@ from pnmatcher.core.common import datetime_helper
 from difflib import SequenceMatcher
 # from pnmatcher.res import area_code
 
+
 class Validator():
 
     re_zero = re.compile(r'0{3,}')
@@ -58,9 +59,11 @@ class Validator():
     def validate_phone_number(self, raw):
         # match all countries if using area_code.get_all_country_iso_two_letter_code()
         # may include too short phone numbers if use 'DE'
-        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT', 'DE', 'CA', 'TR']
+        country_code_list = ['US', 'CN', 'IN', 'UA',
+                             'JP', 'RU', 'IT', 'DE', 'CA', 'TR']
         for country_code in country_code_list:
-            rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
+            rtn = self.validate_phone_number_with_coutry_code(
+                raw, country_code=country_code)
             if rtn:
                 return rtn
 
@@ -96,7 +99,6 @@ class Validator():
             if all(rtn[0] == rest for rest in rtn):
                 return True
         return False
-
 
     re_start_zero = re.compile(r'^0+')
 
@@ -134,7 +136,7 @@ class Validator():
                 continue
 
             ans += [nums]
-            
+
             # valid = self.validate_phone_number(nums)
             # if valid:
             #     ans.extend(valid)
@@ -143,5 +145,3 @@ class Validator():
         ans = self.suggest_most_overlap(ans)
 
         return ' '.join(ans)
-
-

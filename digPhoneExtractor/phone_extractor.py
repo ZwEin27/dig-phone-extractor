@@ -4,15 +4,17 @@
 # @Last Modified by:   ZwEin
 # @Last Modified time: 2016-09-30 23:40:03
 
-import copy 
+import copy
 import types
 from digExtractor.extractor import Extractor
 from pnmatcher import PhoneNumberMatcher
 
+
 class PhoneExtractor(Extractor):
 
     def __init__(self):
-        self.renamed_input_fields = ['url', 'raw_content']  # ? renamed_input_fields
+        self.renamed_input_fields = [
+            'url', 'raw_content']  # ? renamed_input_fields
 
     def extract(self, doc):
         extractor = PhoneNumberMatcher(_output_format='obfuscation')
@@ -32,8 +34,8 @@ class PhoneExtractor(Extractor):
         return self.renamed_input_fields
 
     def set_renamed_input_fields(self, renamed_input_fields):
-        if not (isinstance(renamed_input_fields, basestring) or isinstance(renamed_input_fields, types.ListType)):
+        if not (isinstance(renamed_input_fields, basestring) or
+           isinstance(renamed_input_fields, types.ListType)):
             raise ValueError("renamed_input_fields must be a string or a list")
         self.renamed_input_fields = renamed_input_fields
-        return self 
-
+        return self

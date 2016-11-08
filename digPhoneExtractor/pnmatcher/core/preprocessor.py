@@ -8,11 +8,8 @@
 preprocess digits that must not belong to phone number
 
 """
-import os
-import json
 import re
 from pnmatcher.core.common import datetime_helper
-import string
 
 
 class Preprocessor():
@@ -22,8 +19,7 @@ class Preprocessor():
     reg_simple_format = [
         r'(?:(?<=[ \A\b-\.\?])\d{3}[ \?\.-]\d{3}[ \?\.-]\d{4}(?=[ \Z\b-\.\?]))'
     ]
-    re_simple_format = re.compile(r'(?:'+r'|'.join(reg_simple_format)+r')')
-
+    re_simple_format = re.compile(r'(?:' + r'|'.join(reg_simple_format) + r')')
 
     datetime_regexes = [
         r"(?:\d{2}[ _-]\d{2}[ _-]\d{4})",
@@ -56,10 +52,10 @@ class Preprocessor():
 
     others_regexes = [
         r"24/7",
-        r"#\d+", 
-        r"\d+\'\d+", 
-        r"(?<=[\W_])\d{5}[\W_]{1,}\d{5}(?=[\W_])", 
-        r"- {1,}\d+$", 
+        r"#\d+",
+        r"\d+\'\d+",
+        r"(?<=[\W_])\d{5}[\W_]{1,}\d{5}(?=[\W_])",
+        r"- {1,}\d+$",
         r"\d+\%"
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
@@ -74,15 +70,16 @@ class Preprocessor():
         raw = self.prep_datetime(raw)
         raw = Preprocessor.re_prep.sub(' ', raw)
         raw = Preprocessor.re_all_regex.sub('', raw)
-        raw = Preprocessor.re_simple_format.sub('pnwrapper \g<0> pnwrapper', raw)
+        raw = Preprocessor.re_simple_format.sub(
+            'pnwrapper \g<0> pnwrapper', raw)
         # print raw
         return raw
 
 
 if __name__ == '__main__':
-    samples = ['$200tel3365551212', 
-                '$276 3235551212',
-                '07807-254599']
+    samples = ['$200tel3365551212',
+               '$276 3235551212',
+               '07807-254599']
 
     preprocessor = Preprocessor()
     for sample in samples:

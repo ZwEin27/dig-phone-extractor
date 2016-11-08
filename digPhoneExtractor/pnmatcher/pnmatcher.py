@@ -11,9 +11,6 @@ main file for phone number matcher
 
 """
 
-import sys
-import os
-
 from .core.preprocessor import Preprocessor
 from .core.tokenizer import Tokenizer
 from .core.extractor import Extractor
@@ -21,7 +18,6 @@ from .core.cleaner import Cleaner
 from .core.validator import Validator
 from .core.normalizer import Normalizer
 
-# sys.path.append(os.path.join(os.path.abspath('.'), 'vendor'))
 
 class PhoneNumberMatcher():
 
@@ -43,7 +39,9 @@ class PhoneNumberMatcher():
             raise Exception('output_format should be "list" or "obfuscation"')
         self.output_format = _output_format
 
-    def do_process(self, content, source_type='text', do_preprocess=True, do_tokenize=True, do_clean=True, do_extract=True, do_validate=True):
+    def do_process(self, content, source_type='text', do_preprocess=True,
+                   do_tokenize=True, do_clean=True, do_extract=True,
+                   do_validate=True):
         if do_preprocess:
             content = self.preprocessor.preprocess(content)
 
@@ -51,7 +49,7 @@ class PhoneNumberMatcher():
             self.tokenizer.set_source_type(source_type)
             content = self.tokenizer.tokenize(content)
 
-        if do_clean: 
+        if do_clean:
             content = self.cleaner.clean(content)
 
         if do_extract:

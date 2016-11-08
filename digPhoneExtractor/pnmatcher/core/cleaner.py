@@ -10,9 +10,7 @@ clean misspelling number words and replace numeral words
 """
 
 import re
-import sys
-import os
-from string import maketrans
+
 
 class Cleaner():
 
@@ -50,22 +48,33 @@ class Cleaner():
             raw = raw.replace(key, misspelling_dict[key])
         return raw
 
-    numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'siz', 'seven', 'eight', 'nine']
+    numbers = ['zero', 'one', 'two', 'three', 'four',
+               'five', 'siz', 'seven', 'eight', 'nine']
 
-    re_twenty_x = re.compile(r"(two|twenty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_thirty_x = re.compile(r"(three|thirty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_forty_x = re.compile(r"(four|forty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_fifty_x = re.compile(r"(five|fifty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_sixty_x = re.compile(r"(six|sixty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_seventy_x = re.compile(r"(seven|seventy[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
-    re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_twenty_x = re.compile(
+        r"(two|twenty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_thirty_x = re.compile(
+        r"(three|thirty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_forty_x = re.compile(
+        r"(four|forty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_fifty_x = re.compile(
+        r"(five|fifty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_sixty_x = re.compile(
+        r"(six|sixty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_seventy_x = re.compile(
+        r"(seven|seventy[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_eighty_x = re.compile(
+        r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_ninety_x = re.compile(
+        r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
 
     # re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ ilo0-9\.\t\(\),\:\-\+\!])")
     # re_ten = re.compile(r"(?<=[ilo0-9])ten\b")
     re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ \b0-9])")
-    re_one = re.compile(r'(?:(?<=([0-9yneorxt]| ))one|(?:(?<=[ils])[i]((?=[ils])|$)))')
-    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
+    re_one = re.compile(
+        r'(?:(?<=([0-9yneorxt]| ))one|(?:(?<=[ils])[i]((?=[ils])|$)))')
+    re_zero = re.compile(
+        r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
 
     def prep_replace_numeral_words(self, raw):
         raw = raw.replace("hundred", "00")
@@ -109,6 +118,3 @@ class Cleaner():
         raw = self.prep_replace_numeral_words(raw)
         # print raw
         return raw
-
- 
-
