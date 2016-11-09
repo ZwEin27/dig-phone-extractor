@@ -13,9 +13,6 @@ tokenize original content formated in 'text' or 'url' separately, and removing p
 import string
 import re
 
-# from crf_tokenizer import CrfTokenizer
-from digCrfTokenizer.crf_tokenizer import CrfTokenizer
-# from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
 from urlparse import urlparse
 
 SOURCE_TYPE_TEXT = 'text'
@@ -35,10 +32,10 @@ class Tokenizer():
         'text' or 'url'
 
         """
-        st = source_type.lower()
         if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL]:
             raise Exception(
-                source_type + ' is not a source type, which should be "text" or "url"')
+                source_type +
+                ' is not a source type, which should be "text" or "url"')
 
         self.source_type = source_type
 
@@ -54,12 +51,7 @@ class Tokenizer():
         return ' '.join(result.split())
 
     def tokenize_text(self, raw):
-        t = CrfTokenizer()
-        t.setRecognizeHtmlEntities(True)
-        t.setRecognizeHtmlTags(True)
-        t.setSkipHtmlTags(True)
-        t.setRecognizePunctuation(True)
-        tokens = t.tokenize(raw)
+        tokens = raw
         tokens = ' '.join(tokens)
         tokens = self.remove_punctuation(tokens)
         return tokens

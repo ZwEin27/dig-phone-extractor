@@ -13,14 +13,15 @@ from pnmatcher import PhoneNumberMatcher
 class PhoneExtractor(Extractor):
 
     def __init__(self):
-        self.renamed_input_fields = [
-            'url', 'raw_content']  # ? renamed_input_fields
+        self.renamed_input_fields = 'input'
+        self.extractor = PhoneNumberMatcher(_output_format='obfuscation')
 
     def extract(self, doc):
-        extractor = PhoneNumberMatcher(_output_format='obfuscation')
         extracts = []
-        extracts += extractor.match(doc['url'], source_type='url')
-        extracts += extractor.match(doc['raw_content'], source_type='text')
+        extracts += self.extractor.match(doc['input'],
+                                         source_type=self.get_source_type(),
+                                         include_context=self.get_include_context())
+
         return extracts
 
     def get_metadata(self):
@@ -38,4 +39,11 @@ class PhoneExtractor(Extractor):
            isinstance(renamed_input_fields, types.ListType)):
             raise ValueError("renamed_input_fields must be a string or a list")
         self.renamed_input_fields = renamed_input_fields
+        return self
+
+    def get_source_type(self):
+        return self.source_type
+
+    def set_source_type(self, source_type):
+        self.source_type = source_type
         return self

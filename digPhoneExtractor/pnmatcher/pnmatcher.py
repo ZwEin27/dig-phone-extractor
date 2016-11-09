@@ -41,13 +41,13 @@ class PhoneNumberMatcher():
 
     def do_process(self, content, source_type='text', do_preprocess=True,
                    do_tokenize=True, do_clean=True, do_extract=True,
-                   do_validate=True):
-        if do_preprocess:
-            content = self.preprocessor.preprocess(content)
-
+                   do_validate=True, include_context=False):
         if do_tokenize:
             self.tokenizer.set_source_type(source_type)
             content = self.tokenizer.tokenize(content)
+
+        if do_preprocess:
+            content = self.preprocessor.preprocess(content)
 
         if do_clean:
             content = self.cleaner.clean(content)
@@ -61,10 +61,10 @@ class PhoneNumberMatcher():
         return content
 
         
-    def match(self, content, source_type='text'):
+    def match(self, content, source_type='text', include_context=False):
         cleaned_ans = self.do_process(content, source_type=source_type)
         uncleaned_ans = self.do_process(content, source_type=source_type, do_clean=False)
-        return self.normalizer.normalize(cleaned_ans, uncleaned_ans, output_format=self.output_format)
+        return self.normalizer.normalize(cleaned_ans, uncleaned_ans, output_format=self.output_format, include_context=include_context)
 
 
 

@@ -14,15 +14,15 @@ class Normalizer():
     re_digits = re.compile(
         r'(?:(?<=[ \s\b\Aa-zA-Z])[\d ]+(?=[ \s\b\Za-zA-Z]))')
 
-    def normalize(self, cleaned_output, uncleaned_output, output_format='list'):
+    def normalize(self, cleaned_output, uncleaned_output, output_format='list', include_context=False):
         # print [_.strip() for _ in
         # Normalizer.re_digits.findall(tokenized_content) if _.strip() != '']
 
-        if output_format == 'obfuscation':
+        if include_context:
             output = []
             for co in cleaned_output.split():
                 phonenum = {}
-                phonenum['telephone'] = co
+                phonenum['value'] = co
                 if co in uncleaned_output:
                     phonenum['obfuscation'] = 'False'
                 else:
