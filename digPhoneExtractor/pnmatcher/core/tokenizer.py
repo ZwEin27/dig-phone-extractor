@@ -9,7 +9,8 @@ tokenize original content formated in 'text' or 'url' separately, and removing p
 
 """
 
-
+import unicodedata
+import sys
 import string
 import re
 
@@ -17,6 +18,9 @@ from urlparse import urlparse
 
 SOURCE_TYPE_TEXT = 'text'
 SOURCE_TYPE_URL = 'url'
+
+punctuation_tbl = dict.fromkeys(i for i in xrange(sys.maxunicode)
+                      if unicodedata.category(unichr(i)).startswith('P'))
 
 
 class Tokenizer():
@@ -40,7 +44,12 @@ class Tokenizer():
         self.source_type = source_type
 
     def remove_punctuation(self, raw):
-        return raw.translate(string.maketrans("", ""), string.punctuation)
+        if isinstance(raw, str):
+            return raw.translate(string.maketrans("", ""), string.punctuation)
+        elif isinstance(raw, unicode):
+            return raw.translate(punctuation_tbl)
+        else:
+            return raw
 
     def tokenize(self, raw):
         result = None

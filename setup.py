@@ -10,7 +10,7 @@ from setuptools import find_packages
 
 setup(
     name='digPhoneExtractor',
-    version='0.3.4',
+    version='0.3.5',
     description='digPhoneExtractor',
     author='Lingzhe Teng',
     author_email='zwein27@gmail.com',

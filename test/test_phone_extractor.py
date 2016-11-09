@@ -14,8 +14,8 @@ class TestPhoneExtractorMethods(unittest.TestCase):
 
     def test_phone_extractor(self):
         #'Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call'
-        doc = {'content': ['Sexy', 'new', 'girl', 'in', 'town', 'searching', 'for', 'a', 'great', 'date', 'wiff', 'u', 'Naughty', 'fresh', 'girl', 'here', 'searching', '4', 'a', 'great', 'date', 'wiff', 'you', 'Sweet', 'new', 'girl', 'in', 'town', 'seeking', 'for', 'a', 'good', 'date', 'with', 'u', 'for80', '2sixseven', 'one9zerofor', '90hr', 'incall', 'or', 'out', 'call'],
-               'url': 'http://liveescortreviews.com/ad/philadelphia/602-228-4192/1/310054', 'b': 'world'}
+        doc = {'content': [u'Sexy', u'new', u'girl', u'in', 'town', 'searching', 'for', 'a', 'great', 'date', 'wiff', 'u', 'Naughty', 'fresh', 'girl', 'here', 'searching', '4', 'a', 'great', 'date', 'wiff', 'you', 'Sweet', 'new', 'girl', 'in', 'town', 'seeking', 'for', 'a', 'good', 'date', 'with', 'u', 'for80', '2sixseven', 'one9zerofor', '90hr', 'incall', 'or', 'out', 'call'],
+               'url': u'http://liveescortreviews.com/ad/philadelphia/602-228-4192/1/310054', 'b': 'world'}
 
         e1 = PhoneExtractor().set_metadata({'extractor': 'phone'})
         e1.set_source_type('url')
