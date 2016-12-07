@@ -9,17 +9,19 @@ tokenize original content formated in 'text' or 'url' separately, and removing p
 
 """
 
-
+import unicodedata
+import sys
 import string
 import re
 
-# from crf_tokenizer import CrfTokenizer
-from digCrfTokenizer.crf_tokenizer import CrfTokenizer
-# from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
 from urlparse import urlparse
 
 SOURCE_TYPE_TEXT = 'text'
 SOURCE_TYPE_URL = 'url'
+
+punctuation_tbl = dict.fromkeys(i for i in xrange(sys.maxunicode)
+                      if unicodedata.category(unichr(i)).startswith('P'))
+
 
 class Tokenizer():
 
@@ -30,18 +32,24 @@ class Tokenizer():
         self.set_source_type(source_type)
 
     def set_source_type(self, source_type):
-        """ 
+        """
         'text' or 'url'
 
         """
-        st = source_type.lower()
-        if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL] :
-            raise Exception(source_type + ' is not a source type, which should be "text" or "url"')
+        if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL]:
+            raise Exception(
+                source_type +
+                ' is not a source type, which should be "text" or "url"')
 
         self.source_type = source_type
 
     def remove_punctuation(self, raw):
-        return raw.translate(string.maketrans("",""), string.punctuation)
+        if isinstance(raw, str):
+            return raw.translate(string.maketrans("", ""), string.punctuation)
+        elif isinstance(raw, unicode):
+            return raw.translate(punctuation_tbl)
+        else:
+            return raw
 
     def tokenize(self, raw):
         result = None
@@ -52,12 +60,7 @@ class Tokenizer():
         return ' '.join(result.split())
 
     def tokenize_text(self, raw):
-        t = CrfTokenizer()
-        t.setRecognizeHtmlEntities(True)
-        t.setRecognizeHtmlTags(True)
-        t.setSkipHtmlTags(True)
-        t.setRecognizePunctuation(True)
-        tokens = t.tokenize(raw)
+        tokens = raw
         tokens = ' '.join(tokens)
         tokens = self.remove_punctuation(tokens)
         return tokens
@@ -66,9 +69,10 @@ class Tokenizer():
         SEPARATOR = ' '
 
         url_obj = urlparse(raw)
-        
+
         # parse netloc
-        netloc = url_obj.netloc.split('.')[:-2]   # get rid of port numbers, ext and domain name
+        # get rid of port numbers, ext and domain name
+        netloc = url_obj.netloc.split('.')[:-2]
 
         # parse path
         path = url_obj.path
@@ -77,17 +81,12 @@ class Tokenizer():
 
         content = netloc + path
 
-        content = [SEPARATOR.join(Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
+        content = [SEPARATOR.join(
+            Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
 
         # parse params
         # url_obj.params
-        
+
         # parse query
         # url_obj.query
         return ' sep '.join(content)
-   
-
-
-
-
-    

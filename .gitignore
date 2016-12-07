@@ -1,6 +1,7 @@
 
 experiment/
 scripts/
+test/memex/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
