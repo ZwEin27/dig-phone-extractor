@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-10-30 17:46:27
+# @Last Modified time: 2016-12-08 11:39:08
 
 """
 ensure phone numbers are valid
@@ -18,7 +18,7 @@ from difflib import SequenceMatcher
 
 class Validator():
 
-    re_zero = re.compile(r'0{3,}')
+    re_zero = re.compile(r'0{4,}')
 
     def validate_phone_number_with_coutry_code(self, raw, country_code='US'):
         try:
@@ -126,7 +126,7 @@ class Validator():
 
             if len(nums) > 16:
                 continue
-
+                
             if len(Validator.re_zero.findall(nums)):
                 continue
 
