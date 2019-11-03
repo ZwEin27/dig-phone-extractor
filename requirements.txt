@@ -3,7 +3,7 @@ digExtractor>=0.3.3
 nose2==0.6.4
 phonenumbers==7.4.2
 ply==3.9
-requests==2.11.1
+requests==2.20.0
 requests-file==1.4
 six==1.10.0
 digCrfTokenizer>=0.1.5
